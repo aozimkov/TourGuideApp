@@ -41,21 +41,19 @@ public class Card {
      * @param image
      * @param header
      * @param description
-     * @param url
      * @param lat
      * @param lon
      */
-    public Card(int image, String header, String description, String url, double lat, double lon) {
+    public Card(int image, String header, String description, double lat, double lon) {
         mImage = image;
         mHeader = header;
         mDescription = description;
-        mUrl = url;
         mLat = lat;
         mLon = lon;
     }
 
     /**
-     * Constructor for Food and Hotels
+     * Constructor for Food
      * @param image
      * @param header
      * @param description
@@ -74,6 +72,24 @@ public class Card {
         mLon = lon;
         mContactOne = contactOne;
         mContactTwo = contactTwo;
+    }
+
+    /**
+     * Constructor for Hotels
+     * @param mImage
+     * @param mHeader
+     * @param mDescription
+     * @param mUrl
+     * @param mLat
+     * @param mLon
+     */
+    public Card(int mImage, String mHeader, String mDescription, String mUrl, double mLat, double mLon) {
+        this.mImage = mImage;
+        this.mHeader = mHeader;
+        this.mDescription = mDescription;
+        this.mUrl = mUrl;
+        this.mLat = mLat;
+        this.mLon = mLon;
     }
 
     public int getmImage() {
