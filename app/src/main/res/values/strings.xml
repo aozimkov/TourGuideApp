@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Tour Guide App</string>
+    <string name="news">News</string>
+    <string name="food">Food</string>
+    <string name="locations">Locations</string>
+    <string name="hotels">Hotels</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
