@@ -1,6 +1,7 @@
 package com.example.android.tourguideapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,8 +38,8 @@ public class FoodFragment extends Fragment {
                 "http://cafe-hinkali.ru",
                 22.11111,
                 083.1311,
-                "Contact 1",
-                "Contact 2"));
+                "+7999123456",
+                "+7999765432"));
 
 
         CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
@@ -48,6 +49,35 @@ public class FoodFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Card currentCard = cards.get(i);
+                Intent intent = new Intent();
+
+                if(currentCard.hasCardImage()) intent.putExtra(
+                        "image", currentCard.getmImage());
+                if(currentCard.hasUrl()) {
+                    intent.putExtra("url", currentCard.getmUrl());
+                    intent.putExtra("button", getString(R.string.open_in_browser));
+                }
+
+                if(currentCard.hasCardFirstContact()){
+                    intent.putExtra("phone1", currentCard.getmContactOne());
+                }
+
+                if(currentCard.hasCardSecondContact()){
+                    intent.putExtra("phone2", currentCard.getmContactOne());
+                }
+
+                if(currentCard.hasCoordinates()){
+                    intent.putExtra("lat", currentCard.getmLat());
+                    intent.putExtra("lon", currentCard.getmLon());
+                }
+
+                intent.putExtra("header", currentCard.getmHeader());
+                intent.putExtra("description", currentCard.getmDescription());
+
+                intent.setClass(getActivity(), SingleActivity.class);
+                startActivity(intent);
 
             }
         });

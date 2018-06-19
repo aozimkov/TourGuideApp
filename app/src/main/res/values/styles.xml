@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SingleCard" parent="AppTheme"></style>
+    <style name="SingleCard.Header" parent="SingleCard"></style>
+    <style name="SingleCard.Description" parent="SingleCard.Header"></style>
+    <style name="SingleCard.Phone" parent="SingleCard.Description"></style>
+
 </resources>

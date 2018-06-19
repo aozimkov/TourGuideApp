@@ -72,10 +72,20 @@ public class NewsFragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Card currentCard = cards.get(i);
+                Intent intent = new Intent();
 
-                String url = currentCard.getmUrl();
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+                if(currentCard.hasCardImage()) intent.putExtra(
+                        "image", currentCard.getmImage());
+                if(currentCard.hasUrl()) {
+                    intent.putExtra("url", currentCard.getmUrl());
+                    intent.putExtra("button", getString(R.string.read_more));
+                }
+
+
+                intent.putExtra("header", currentCard.getmHeader());
+                intent.putExtra("description", currentCard.getmDescription());
+
+                intent.setClass(getActivity(), SingleActivity.class);
                 startActivity(intent);
 
             }

@@ -10,15 +10,10 @@ import java.net.URL;
 public class Card {
 
     private int mImage;
-    private String mHeader;
-    private String mDescription;
-    private String mUrl;
-    private double mLat;
-    private double mLon;
-    private String mContactOne;
-    private String mContactTwo;
+    private String mHeader, mDescription, mUrl, mContactOne, mContactTwo;
+    private double mLat, mLon = 180.01;
 
-    private static String NO_SECOND_CONTACT_POVIDED = "";
+    private static String NO_CONTACT_POVIDED = "";
     private static int NO_IMAGE_POVIDED = -1;
 
 
@@ -76,20 +71,20 @@ public class Card {
 
     /**
      * Constructor for Hotels
-     * @param mImage
-     * @param mHeader
-     * @param mDescription
-     * @param mUrl
-     * @param mLat
-     * @param mLon
+     * @param image
+     * @param header
+     * @param description
+     * @param url
+     * @param lat
+     * @param lon
      */
-    public Card(int mImage, String mHeader, String mDescription, String mUrl, double mLat, double mLon) {
-        this.mImage = mImage;
-        this.mHeader = mHeader;
-        this.mDescription = mDescription;
-        this.mUrl = mUrl;
-        this.mLat = mLat;
-        this.mLon = mLon;
+    public Card(int image, String header, String description, String url, double lat, double lon) {
+        mImage = image;
+        mHeader = header;
+        mDescription = description;
+        mUrl = url;
+        mLat = lat;
+        mLon = lon;
     }
 
     public int getmImage() {
@@ -132,9 +127,19 @@ public class Card {
         return !mUrl.equals("");
     }
 
-    public boolean hasCardSecondContact() {
-        return !mContactTwo.equals(NO_SECOND_CONTACT_POVIDED);
+    public boolean hasCardFirstContact() {
+        return !mContactTwo.equals(NO_CONTACT_POVIDED);
     }
+
+    public boolean hasCardSecondContact() {
+        return !mContactTwo.equals(NO_CONTACT_POVIDED);
+    }
+
+    public boolean hasCoordinates() {
+        return (mLat < 181 && mLon < 181);
+    }
+
+
 
     //For Logging
     @Override

@@ -5,34 +5,65 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        style="@style/SingleCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/single_image"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        <ImageView
+            android:id="@+id/single_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
 
-    <TextView
-        android:id="@+id/single_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Header" />
+        <TextView
+            style="@style/SingleCard.Header"
+            android:id="@+id/single_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Header" />
 
-    <TextView
-        android:id="@+id/single_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="description" />
+        <TextView
+            style="@style/SingleCard.Description"
+            android:id="@+id/single_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="description" />
 
-    <Button
-        android:id="@+id/single_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/read_more"/>
+        <TextView
+            android:id="@+id/contacts_header"
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contacts"/>
+
+        <TextView
+            style="@style/SingleCard.Phone"
+            android:id="@+id/phone_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="+77778886655"/>
+
+        <TextView
+            style="@style/SingleCard.Phone"
+            android:id="@+id/phone_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="+77778886655"/>
+
+
+        <Button
+            android:id="@+id/single_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/read_more"/>
+
+        <Button
+            android:id="@+id/single_map_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/open_map"/>
 
     </LinearLayout>
 

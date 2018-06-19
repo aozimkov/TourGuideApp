@@ -8,6 +8,10 @@
     <string name="read_more">Read more</string>
     <string name="book_now">Book now</string>
     <string name="open_in_browser">Open in browser</string>
-    <string name="open_map">Open on map</string>
+    <string name="open_map">On map</string>
+
+    <string name="contacts">Contacts</string>
+    <string name="tel">Tel: </string>
+    <string name="website">Website: </string>
 
 </resources>
