@@ -128,6 +128,10 @@ public class Card {
         return mImage != NO_IMAGE_POVIDED;
     }
 
+    public boolean hasUrl(){
+        return !mUrl.equals("");
+    }
+
     public boolean hasCardSecondContact() {
         return !mContactTwo.equals(NO_SECOND_CONTACT_POVIDED);
     }

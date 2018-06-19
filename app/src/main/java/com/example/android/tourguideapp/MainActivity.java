@@ -9,6 +9,9 @@ import android.widget.TableLayout;
 
 public class MainActivity extends AppCompatActivity{
 
+    private static final int TYPE_LIST = 1;
+    private static final int TYPE_GRID = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

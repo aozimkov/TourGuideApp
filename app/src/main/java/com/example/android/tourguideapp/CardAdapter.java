@@ -18,8 +18,13 @@ import java.util.ArrayList;
 
 public class CardAdapter extends ArrayAdapter<Card> {
 
-    public CardAdapter(Activity context, ArrayList<Card> cards) {
+    String adapterType;
+
+    public CardAdapter(Activity context, ArrayList<Card> cards, String type) {
         super(context, 0, cards);
+
+        adapterType = type;
+
     }
 
     @NonNull
@@ -54,7 +59,12 @@ public class CardAdapter extends ArrayAdapter<Card> {
         // Set Header
         headerView.setText(currentCard.getmHeader());
         // Set Descr
-        descriptionView.setText(currentCard.getmDescription());
+        if(adapterType.equals("grid")){
+            descriptionView.setVisibility(View.GONE);
+        } else {
+            descriptionView.setVisibility(View.VISIBLE);
+            descriptionView.setText(currentCard.getmDescription());
+        }
 
         // About URL - must it been setted here ?
 

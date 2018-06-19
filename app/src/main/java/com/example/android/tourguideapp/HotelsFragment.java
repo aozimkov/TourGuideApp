@@ -1,6 +1,7 @@
 package com.example.android.tourguideapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ public class HotelsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.card_list, container, false);
@@ -84,7 +85,7 @@ public class HotelsFragment extends Fragment {
                 38.202452));
 
 
-        CardAdapter adapter = new CardAdapter(getActivity(), cards);
+        CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         listView.setAdapter(adapter);
 
@@ -92,6 +93,22 @@ public class HotelsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Card currentCard = cards.get(i);
+                Intent intent = new Intent();
+
+                if(currentCard.hasCardImage()) intent.putExtra(
+                        "image", currentCard.getmImage());
+                if(currentCard.hasUrl()) {
+                    intent.putExtra("url", currentCard.getmUrl());
+                    intent.putExtra("button", getString(R.string.book_now));
+                }
+
+
+                intent.putExtra("header", currentCard.getmHeader());
+                intent.putExtra("description", currentCard.getmDescription());
+
+                intent.setClass(getActivity(), SingleActivity.class);
+                startActivity(intent);
             }
         });
 

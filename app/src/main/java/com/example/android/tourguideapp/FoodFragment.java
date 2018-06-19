@@ -41,7 +41,7 @@ public class FoodFragment extends Fragment {
                 "Contact 2"));
 
 
-        CardAdapter adapter = new CardAdapter(getActivity(), cards);
+        CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         listView.setAdapter(adapter);
 
