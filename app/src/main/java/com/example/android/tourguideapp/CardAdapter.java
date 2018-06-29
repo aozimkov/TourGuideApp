@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -50,7 +52,10 @@ public class CardAdapter extends ArrayAdapter<Card> {
         // Set image
         if (currentCard.hasCardImage()){
             imageView.setVisibility(View.VISIBLE);
-            imageView.setImageResource(currentCard.getmImage());
+            Picasso.with(getContext())
+                    .load(currentCard.getmImage())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(imageView);
             headerView.setTextColor(Color.WHITE);
         } else {
             imageView.setVisibility(View.GONE);
@@ -61,6 +66,7 @@ public class CardAdapter extends ArrayAdapter<Card> {
         // Set Descr
         if(adapterType.equals("grid")){
             descriptionView.setVisibility(View.GONE);
+            listViewItem.setPadding(4,4,4,4);
         } else {
             descriptionView.setVisibility(View.VISIBLE);
             descriptionView.setText(currentCard.getmDescription());
