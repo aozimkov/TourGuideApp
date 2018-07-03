@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class CardAdapter extends ArrayAdapter<Card> {
 
-    String adapterType;
+    private String adapterType;
 
     public CardAdapter(Activity context, ArrayList<Card> cards, String type) {
         super(context, 0, cards);
@@ -42,7 +42,6 @@ public class CardAdapter extends ArrayAdapter<Card> {
         }
 
         //Construct Adapter
-
         Card currentCard = getItem(position);
 
         ImageView imageView = (ImageView) listViewItem.findViewById(R.id.card_image);
@@ -52,9 +51,11 @@ public class CardAdapter extends ArrayAdapter<Card> {
         // Set image
         if (currentCard.hasCardImage()){
             imageView.setVisibility(View.VISIBLE);
-            Picasso.with(getContext())
+            Picasso.get()
                     .load(currentCard.getmImage())
                     .placeholder(R.drawable.ic_launcher_background)
+                    .resize(500,300)
+                    .centerCrop()
                     .into(imageView);
             headerView.setTextColor(Color.WHITE);
         } else {
@@ -71,8 +72,6 @@ public class CardAdapter extends ArrayAdapter<Card> {
             descriptionView.setVisibility(View.VISIBLE);
             descriptionView.setText(currentCard.getmDescription());
         }
-
-        // About URL - must it been setted here ?
 
         return listViewItem;
     }

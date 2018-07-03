@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -13,20 +14,16 @@
         <ImageView
             android:id="@+id/card_image"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="@dimen/image_height"
             android:src="@drawable/ic_launcher_background"
             android:scaleType="centerCrop"/>
 
         <TextView
+            style="@style/ListHeader"
             android:id="@+id/card_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Header"
-            android:layout_alignParentBottom="true"
-
-            android:padding="16dp"
-
-            android:textAppearance="?android:textAppearanceLarge"
             />
 
     </RelativeLayout>
@@ -38,7 +35,6 @@
         android:maxLines="2"
         android:ellipsize="end"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris..."
-
-        android:padding="16dp"/>
+        android:padding="@dimen/frame_space"/>
 
 </LinearLayout>

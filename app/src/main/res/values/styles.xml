@@ -8,9 +8,31 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="SingleCard" parent="AppTheme"></style>
-    <style name="SingleCard.Header" parent="SingleCard"></style>
-    <style name="SingleCard.Description" parent="SingleCard.Header"></style>
-    <style name="SingleCard.Phone" parent="SingleCard.Description"></style>
+
+    <style name="SingleCard" parent="AppTheme">
+        <item name="android:paddingBottom">@dimen/frame_space</item>
+    </style>
+
+    <style name="ListHeader">
+        <item name="android:textColor">@color/list_header_text</item>
+        <item name="android:shadowColor">@color/list_header_text_shadow</item>
+        <item name="android:shadowDx">4</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:padding">@dimen/frame_space</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+    </style>
+
+    <style name="SingleCard.Header" parent="SingleCard">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:padding">@dimen/frame_space</item>
+    </style>
+
+    <style name="SingleCard.Description" parent="SingleCard.Header">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 </resources>

@@ -1,7 +1,5 @@
 package com.example.android.tourguideapp;
 
-import java.net.URL;
-
 /**
  * Class for any types of cards in app
  *
@@ -10,12 +8,7 @@ import java.net.URL;
 public class Card {
 
     private int mImage;
-    private String mHeader, mDescription, mUrl, mContactOne, mContactTwo;
-    private double mLat, mLon = 180.01;
-
-    private static String NO_CONTACT_POVIDED = "";
-    private static int NO_IMAGE_POVIDED = -1;
-
+    private String mHeader, mDescription, mUrl, mContactOne, mLat, mLon;
 
     /**
      * Constructor for News type
@@ -39,7 +32,7 @@ public class Card {
      * @param lat
      * @param lon
      */
-    public Card(int image, String header, String description, double lat, double lon) {
+    public Card(int image, String header, String description, String lat, String lon) {
         mImage = image;
         mHeader = header;
         mDescription = description;
@@ -56,9 +49,8 @@ public class Card {
      * @param lat
      * @param lon
      * @param contactOne
-     * @param contactTwo
      */
-    public Card(int image, String header, String description, String url, double lat, double lon, String contactOne, String contactTwo) {
+    public Card(int image, String header, String description, String url, String lat, String lon, String contactOne) {
         mImage = image;
         mHeader = header;
         mDescription = description;
@@ -66,7 +58,6 @@ public class Card {
         mLat = lat;
         mLon = lon;
         mContactOne = contactOne;
-        mContactTwo = contactTwo;
     }
 
     /**
@@ -78,7 +69,7 @@ public class Card {
      * @param lat
      * @param lon
      */
-    public Card(int image, String header, String description, String url, double lat, double lon) {
+    public Card(int image, String header, String description, String url, String lat, String lon) {
         mImage = image;
         mHeader = header;
         mDescription = description;
@@ -103,11 +94,11 @@ public class Card {
         return mUrl;
     }
 
-    public double getmLat() {
+    public String getmLat() {
         return mLat;
     }
 
-    public double getmLon() {
+    public String getmLon() {
         return mLon;
     }
 
@@ -115,11 +106,8 @@ public class Card {
         return mContactOne;
     }
 
-    public String getmContactTwo() {
-        return mContactTwo;
-    }
-
     public boolean hasCardImage(){
+        int NO_IMAGE_POVIDED = -1;
         return mImage != NO_IMAGE_POVIDED;
     }
 
@@ -128,15 +116,12 @@ public class Card {
     }
 
     public boolean hasCardFirstContact() {
-        return !mContactTwo.equals(NO_CONTACT_POVIDED);
-    }
-
-    public boolean hasCardSecondContact() {
-        return !mContactTwo.equals(NO_CONTACT_POVIDED);
+        String NO_CONTACT_POVIDED = "";
+        return !mContactOne.equals(NO_CONTACT_POVIDED);
     }
 
     public boolean hasCoordinates() {
-        return (mLat < 181 && mLon < 181);
+        return (!mLat.equals("") && !mLon.equals(""));
     }
 
 
@@ -152,7 +137,6 @@ public class Card {
                 ", mLat=" + mLat +
                 ", mLon=" + mLon +
                 ", mContactOne='" + mContactOne + '\'' +
-                ", mContactTwo='" + mContactTwo + '\'' +
                 '}';
     }
 }

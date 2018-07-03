@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +25,7 @@ public class SingleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         /**
@@ -37,14 +39,12 @@ public class SingleFragment extends Fragment {
         Button singleMapButton = singleCard.findViewById(R.id.single_map_button);
         TextView singleContactsHeader = singleCard.findViewById(R.id.contacts_header);
         TextView singlePhoneOne = singleCard.findViewById(R.id.phone_one);
-        TextView singlePhoneTwo = singleCard.findViewById(R.id.phone_two);
 
         final String url = getArguments().getString("url", "");
         final int image = getArguments().getInt("image", R.drawable.ic_launcher_background); // IMPORTANT IMAGE!!!
         final double lat = getArguments().getDouble("lat", 181);
         final double lon = getArguments().getDouble("lon", 181);
         final String phone1 = getArguments().getString("phone1", "");
-        final String phone2 = getArguments().getString("phone2", "");
 
         /**
          * Url button logic
@@ -71,7 +71,17 @@ public class SingleFragment extends Fragment {
          * Map location button logic
          */
         if (lat < 181 && lon < 181){
-            // Map logic
+            singleMapButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String mapUrl = "https://www.google.com/maps/@" + lat +
+                            "," + lon +
+                            ",18z";
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(mapUrl));
+                    startActivity(intent);
+                }
+            });
         } else {
             singleMapButton.setVisibility(View.GONE);
         }
@@ -83,21 +93,21 @@ public class SingleFragment extends Fragment {
             singlePhoneOne.setVisibility(View.VISIBLE);
             singleContactsHeader.setVisibility(View.VISIBLE);
             singlePhoneOne.setText(phone1);
+            singlePhoneOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String uri = "tel:" + phone1;
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse(uri));
+                    startActivity(intent);
+                }
+            });
         } else {
             singlePhoneOne.setVisibility(View.GONE);
             singleContactsHeader.setVisibility(View.GONE);
-
         }
 
-        if (!phone2.equals("")){
-            singlePhoneTwo.setVisibility(View.VISIBLE);
-            singlePhoneTwo.setText(phone2);
-        } else {
-            singlePhoneTwo.setVisibility(View.GONE);
-        }
-
-
-        singleImage.setImageResource(image);
+        Picasso.get().load(image).into(singleImage);
         singleHeader.setText(getArguments().getString("header", "Header"));
         singleDesc.setText(getArguments().getString("description", "Description"));
 

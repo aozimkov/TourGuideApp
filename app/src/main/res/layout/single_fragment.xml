@@ -33,33 +33,28 @@
 
         <TextView
             android:id="@+id/contacts_header"
+            android:paddingLeft="@dimen/frame_space"
             style="?android:listSeparatorTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/contacts"/>
 
         <TextView
-            style="@style/SingleCard.Phone"
+            style="@style/SingleCard.Description"
             android:id="@+id/phone_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="+77778886655"/>
 
-        <TextView
-            style="@style/SingleCard.Phone"
-            android:id="@+id/phone_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="+77778886655"/>
-
-
         <Button
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/single_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/read_more"/>
 
         <Button
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:id="@+id/single_map_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
