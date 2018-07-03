@@ -14,6 +14,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.Unbinder;
+
 /**
  * Created by def on 11.06.18.
  */

@@ -13,10 +13,23 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import butterknife.BindArray;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HotelsFragment extends Fragment {
+
+    @BindArray(R.array.hotel_array_1) String[] hotel1;
+    @BindArray(R.array.hotel_array_2) String[] hotel2;
+    @BindArray(R.array.hotel_array_3) String[] hotel3;
+
+    @BindView(R.id.list) ListView listView;
+
+    private Unbinder unbinder;
 
 
     public HotelsFragment() {
@@ -30,41 +43,21 @@ public class HotelsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.card_list, container, false);
 
+        unbinder = ButterKnife.bind(this, rootView);
+
         final ArrayList<Card> cards = new ArrayList<>();
 
-        Resources res = getResources();
-
-        String[] hotel1 = res.getStringArray(R.array.hotel_array_1);
-        String[] hotel2 = res.getStringArray(R.array.hotel_array_2);
-        String[] hotel3 = res.getStringArray(R.array.hotel_array_3);
+        cards.add(new Card(
+                R.drawable.hotel1, hotel1[0], hotel1[1], hotel1[2], hotel1[3], hotel1[4]));
 
         cards.add(new Card(
-                R.drawable.hotel1,
-                hotel1[0],
-                hotel1[1],
-                hotel1[2],
-                hotel1[3],
-                hotel1[4]));
+                R.drawable.hotel2, hotel2[0], hotel2[1], hotel2[2], hotel2[3], hotel2[4]));
 
         cards.add(new Card(
-                R.drawable.hotel2,
-                hotel2[0],
-                hotel2[1],
-                hotel2[2],
-                hotel2[3],
-                hotel2[4]));
-
-        cards.add(new Card(
-                R.drawable.hotel3,
-                hotel3[0],
-                hotel3[1],
-                hotel3[2],
-                hotel3[3],
-                hotel3[4]));
+                R.drawable.hotel3, hotel3[0], hotel3[1], hotel3[2], hotel3[3], hotel3[4]));
 
 
         CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
-        ListView listView = (ListView) rootView.findViewById(R.id.list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -93,4 +86,9 @@ public class HotelsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        super.onDestroyView();
+    }
 }

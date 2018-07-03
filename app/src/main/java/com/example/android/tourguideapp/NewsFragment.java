@@ -13,10 +13,25 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import butterknife.BindArray;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewsFragment extends Fragment{
+
+    @BindArray(R.array.news_array_1) String[] news1;
+    @BindArray(R.array.news_array_2) String[] news2;
+    @BindArray(R.array.news_array_3) String[] news3;
+    @BindArray(R.array.news_array_4) String[] news4;
+    @BindArray(R.array.news_array_5) String[] news5;
+
+    @BindView(R.id.list) ListView listView;
+
+    private Unbinder unbinder;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -27,45 +42,17 @@ public class NewsFragment extends Fragment{
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.card_list, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
 
         final ArrayList<Card> cards = new ArrayList<>();
 
-        Resources res = getResources();
-
-        String[] news1 = res.getStringArray(R.array.news_array_1);
-        String[] news2 = res.getStringArray(R.array.news_array_2);
-        String[] news3 = res.getStringArray(R.array.news_array_3);
-        String[] news4 = res.getStringArray(R.array.news_array_4);
-        String[] news5 = res.getStringArray(R.array.news_array_5);
-
-        cards.add(new Card(
-                R.drawable.news1,
-                news1[0],
-                news1[1],
-                news1[2]));
-
-        cards.add(new Card(R.drawable.news2,
-                news2[0],
-                news2[1],
-                news2[2]));
-
-        cards.add(new Card(R.drawable.news3,
-                news3[0],
-                news3[1],
-                news3[2]));
-
-        cards.add(new Card(R.drawable.news4,
-                news4[0],
-                news4[1],
-                news4[2]));
-
-        cards.add(new Card(R.drawable.news5,
-                news5[0],
-                news5[1],
-                news5[2]));
+        cards.add(new Card(R.drawable.news1, news1[0], news1[1], news1[2]));
+        cards.add(new Card(R.drawable.news2, news2[0], news2[1], news2[2]));
+        cards.add(new Card(R.drawable.news3, news3[0], news3[1], news3[2]));
+        cards.add(new Card(R.drawable.news4, news4[0], news4[1], news4[2]));
+        cards.add(new Card(R.drawable.news5, news5[0], news5[1], news5[2]));
 
         CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
-        ListView listView = (ListView) rootView.findViewById(R.id.list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,4 +82,9 @@ public class NewsFragment extends Fragment{
         return rootView;
     }
 
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        super.onDestroyView();
+    }
 }

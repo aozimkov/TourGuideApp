@@ -14,11 +14,25 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SingleFragment extends Fragment {
+
+    @BindView(R.id.single_image) ImageView singleImage;
+    @BindView(R.id.single_header) TextView singleHeader;
+    @BindView(R.id.single_description) TextView singleDesc;
+    @BindView(R.id.single_button) Button singleButton;
+    @BindView(R.id.single_map_button) Button singleMapButton;
+    @BindView(R.id.contacts_header) TextView singleContactsHeader;
+    @BindView(R.id.phone_one) TextView singlePhoneOne;
+
+    private Unbinder unbinder;
 
     public SingleFragment() {
         // Required empty public constructor
@@ -32,13 +46,7 @@ public class SingleFragment extends Fragment {
          * Define Single Card Elements
          */
         View singleCard = inflater.inflate(R.layout.single_fragment, container, false);
-        ImageView singleImage = singleCard.findViewById(R.id.single_image);
-        TextView singleHeader = singleCard.findViewById(R.id.single_header);
-        TextView singleDesc = singleCard.findViewById(R.id.single_description);
-        Button singleButton = singleCard.findViewById(R.id.single_button);
-        Button singleMapButton = singleCard.findViewById(R.id.single_map_button);
-        TextView singleContactsHeader = singleCard.findViewById(R.id.contacts_header);
-        TextView singlePhoneOne = singleCard.findViewById(R.id.phone_one);
+        unbinder = ButterKnife.bind(this, singleCard);
 
         final String url = getArguments().getString("url", "");
         final int image = getArguments().getInt("image", R.drawable.ic_launcher_background); // IMPORTANT IMAGE!!!
@@ -115,4 +123,9 @@ public class SingleFragment extends Fragment {
         return singleCard;
     }
 
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        super.onDestroyView();
+    }
 }
