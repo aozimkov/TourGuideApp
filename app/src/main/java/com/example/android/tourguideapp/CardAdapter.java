@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+
 /**
  * Created by def on 11.06.18.
  */
