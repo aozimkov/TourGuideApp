@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +33,15 @@ public class FoodFragment extends Fragment {
     @BindArray(R.array.food_array_5) String[] food5;
     @BindArray(R.array.food_array_6) String[] food6;
 
-    @BindView(R.id.list) ListView listView;
+    @BindView(R.id.card_recycle)
+    RecyclerView mRecyclerView;
 
-    private Unbinder unbind;
+    private Unbinder unbinder;
+
+    private ArrayList<Card> cards = new ArrayList<>();
+
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public FoodFragment() {
         // Required empty public constructor
@@ -42,11 +51,8 @@ public class FoodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.card_list, container, false);
-
-        unbind = ButterKnife.bind(this, rootView);
-
-        final ArrayList<Card> cards = new ArrayList<>();
+        View rootView = inflater.inflate(R.layout.card_recycle, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
 
         cards.add(new Card(
                 R.drawable.food1, food1[0], food1[1], food1[2], food1[3], food1[4], food1[5]));
@@ -62,14 +68,24 @@ public class FoodFragment extends Fragment {
                 R.drawable.food6, food6[0], food6[1], food6[2], food6[3], food6[4], food6[5]));
 
 
-        CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
-        listView.setAdapter(adapter);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new CardRecycleAdapter(cards, "list");
+        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(),
+                LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((CardRecycleAdapter) mAdapter).setOnItemClickListener(new CardRecycleAdapter.CardClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Card currentCard = cards.get(i);
+            public void onItemClick(int position, View v) {
+                Card currentCard = cards.get(position);
                 Intent intent = new Intent();
 
                 if(currentCard.hasCardImage()) intent.putExtra(
@@ -93,17 +109,14 @@ public class FoodFragment extends Fragment {
 
                 intent.setClass(getActivity(), SingleActivity.class);
                 startActivity(intent);
-
             }
         });
-
-        return rootView;
     }
 
     @Override
     public void onDestroyView() {
 
         super.onDestroyView();
-        unbind.unbind();
+        unbinder.unbind();
     }
 }

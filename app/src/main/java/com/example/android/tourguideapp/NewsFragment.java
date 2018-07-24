@@ -1,10 +1,13 @@
 package com.example.android.tourguideapp;
 
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +32,16 @@ public class NewsFragment extends Fragment{
     @BindArray(R.array.news_array_4) String[] news4;
     @BindArray(R.array.news_array_5) String[] news5;
 
-    @BindView(R.id.list) ListView listView;
+    @BindView(R.id.card_recycle) RecyclerView mRecyclerView;
 
     private Unbinder unbinder;
 
-    public NewsFragment() {
+    private ArrayList<Card> cards = new ArrayList<>();
+
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+        public NewsFragment() {
         // Required empty public constructor
     }
 
@@ -41,10 +49,8 @@ public class NewsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.card_list, container, false);
+        View rootView = inflater.inflate(R.layout.card_recycle, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-
-        final ArrayList<Card> cards = new ArrayList<>();
 
         cards.add(new Card(R.drawable.news1, news1[0], news1[1], news1[2]));
         cards.add(new Card(R.drawable.news2, news2[0], news2[1], news2[2]));
@@ -52,34 +58,44 @@ public class NewsFragment extends Fragment{
         cards.add(new Card(R.drawable.news4, news4[0], news4[1], news4[2]));
         cards.add(new Card(R.drawable.news5, news5[0], news5[1], news5[2]));
 
-        CardAdapter adapter = new CardAdapter(getActivity(), cards, "list");
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Card currentCard = cards.get(i);
-                Intent intent = new Intent();
-
-                if(currentCard.hasCardImage()) intent.putExtra(
-                        "image", currentCard.getmImage());
-                if(currentCard.hasUrl()) {
-                    intent.putExtra("url", currentCard.getmUrl());
-                    intent.putExtra("button", getString(R.string.read_more));
-                }
-
-
-                intent.putExtra("header", currentCard.getmHeader());
-                intent.putExtra("description", currentCard.getmDescription());
-
-                intent.setClass(getActivity(), SingleActivity.class);
-                startActivity(intent);
-
-            }
-        });
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new CardRecycleAdapter(cards, "list");
+        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(),
+                LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((CardRecycleAdapter) mAdapter).setOnItemClickListener(
+                new CardRecycleAdapter.CardClickListener() {
+                    @Override
+                    public void onItemClick(int position, View v) {
+                        Card currentCard = cards.get(position);
+                        Intent intent = new Intent();
+
+                        if(currentCard.hasCardImage()) intent.putExtra(
+                                "image", currentCard.getmImage());
+                        if(currentCard.hasUrl()) {
+                            intent.putExtra("url", currentCard.getmUrl());
+                            intent.putExtra("button", getString(R.string.read_more));
+                        }
+
+
+                        intent.putExtra("header", currentCard.getmHeader());
+                        intent.putExtra("description", currentCard.getmDescription());
+
+                        intent.setClass(getActivity(), SingleActivity.class);
+                        startActivity(intent);
+
+                    }
+                }
+        );
     }
 
     @Override
@@ -87,4 +103,5 @@ public class NewsFragment extends Fragment{
         unbinder.unbind();
         super.onDestroyView();
     }
+
 }
